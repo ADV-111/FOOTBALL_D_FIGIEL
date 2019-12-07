@@ -64,9 +64,18 @@ class Article(models.Model):
     status = models.IntegerField(choices=status_choices)
     release_start_date = models.DateField(null=True)
     release_end_date = models.DateField(null=True)
+    category = models.ManyToManyField(Category)
 
 
 class Album(models.Model):
     title = models.TextField()
     release_year = models.DateField()
     rating = models.IntegerField(choices=rating_choice)
+    band = models.ForeignKey(Band, on_delete=models.CASCADE, null=True)
+
+
+class Song(models.Model):
+    title = models.CharField(max_length=128)
+    duration = models.DateTimeField(null=True)
+    album = models.ForeignKey(Album, on_delete=models.CASCADE, null=True)
+

@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
 from exercises.models import Band
 
@@ -55,3 +56,31 @@ def show_inactive_80s(request):
     b = Band.objects.filter(year__gte=1980, year__lt=1990, still_active=False)
     return render(request, 'exercises/bands.html',
                   context={'bands': b})
+
+
+@csrf_exempt
+def start_end(request):
+    result = []
+    start_get = int(request.GET.get('start'))
+    end_get = int(request.GET.get('end'))
+    if start_get is not None and end_get is not None:
+        for i in range(start_get, end_get + 1):
+            result.append(i)
+        return HttpResponse(f'''{result}''')
+    else:
+        return HttpResponse('Podaj poprawne parametry!!')
+
+
+@csrf_exempt
+def width_height(request):
+    result = ''
+    width_get = int(request.GET.get('width'))
+    height_get = int(request.GET.get('height'))
+    if width_get is not None and height_get is not None:
+        for i in range(1, width_get + 1):
+            for n in range(1, height_get + 1):
+                result += f' {i * n} '
+            result += '<br>'
+        return HttpResponse(result)
+    else:
+        return HttpResponse('Podaj poprawne parametry!!')
