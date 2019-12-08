@@ -17,7 +17,7 @@ from django.conf.urls import url
 from django.urls import path
 
 from exercises.views import hello_word, show_number, show_the, show_all_bands, show_active_80s, show_the_70s, \
-    show_inactive_80s, start_end, width_height
+    show_inactive_80s, start_end, width_height, login1, login2
 
 urlpatterns = [
     path('', hello_word),
@@ -31,5 +31,7 @@ urlpatterns = [
     url(r'startend2/?$', start_end),
     path('width_height/', width_height),
     path('widthheight', width_height),
+    path('login', login1),
+    path('login2', login2),
 
 ]

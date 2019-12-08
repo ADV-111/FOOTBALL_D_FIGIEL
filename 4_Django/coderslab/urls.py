@@ -15,16 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
 
 from coderslab import settings
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('exercises.urls')),
-    # path('', hello_word)
-]
+urlpatterns = [path('admin/', admin.site.urls),
+               path('', include('exercises.urls')),
+               path('', include('football.urls')),
+               path('contacts/', include('contacts.urls')),
+               # path('', hello_word)
+               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
+              static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     urlpatterns = [
-        # path('__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns
+                      # path('__debug__/', include(debug_toolbar.urls)),
+                  ] + urlpatterns
